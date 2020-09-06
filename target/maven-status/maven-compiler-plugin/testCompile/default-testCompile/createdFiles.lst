@@ -1,0 +1,4 @@
+edu/eci/arsw/cinema/test/ApplicationServicesTest.class
+FilterTest.class
+InMemoryPersistenceTest.class
+PersistenceTest.class
