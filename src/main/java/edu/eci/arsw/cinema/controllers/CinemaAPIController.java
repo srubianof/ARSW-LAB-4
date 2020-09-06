@@ -31,7 +31,7 @@ public class CinemaAPIController {
     @Autowired
     CinemaServices cinemaServices;
 
-    @GetMapping("/cinema")
+    @GetMapping("/cinemas")
     public ResponseEntity<?> cinemas() {
         try {
             Set<Cinema> data = cinemaServices.getAllCinemas();
