@@ -65,6 +65,10 @@ public class CinemaServices {
         Cinema cinemA = this.getCinemaByName(cinema);
         return cf.filerMovie(cinemA,date,filter);
     }
+    public CinemaFunction getFunctionByCinemaDateAndMovieName(String cinema, String date, String movieName){
+        return cps.getFunctionByCinemaDateAndMovieName(cinema,date,movieName);
+
+    }
 
 
 }
