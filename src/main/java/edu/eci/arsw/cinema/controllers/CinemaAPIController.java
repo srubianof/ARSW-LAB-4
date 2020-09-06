@@ -16,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author cristian
@@ -31,23 +28,34 @@ public class CinemaAPIController {
     @Autowired
     CinemaServices cinemaServices;
 
-    @GetMapping("/cinema")
+    @GetMapping("/cinemas")
     public ResponseEntity<?> cinemas() {
         try {
             Set<Cinema> data = cinemaServices.getAllCinemas();
-            for (Cinema c : data
-            ) {
-                System.out.println(c);
-            }
             //obtener datos que se enviarán a través del API
-            System.out.println("mamabisha");
 
-            return new ResponseEntity<Set<Cinema>>(data, HttpStatus.OK);
+            return new ResponseEntity<>(data, HttpStatus.OK);
         } catch (Exception ex) {
             Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("Error bla bla bla", HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/cinemas/{name}")
+    public ResponseEntity<?> cinemaByName(@PathVariable String name) {
+        try {
+            Cinema data = cinemaServices.getCinemaByName(name);
+            //obtener datos que se enviarán a través del API
+
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception ex) {
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Not cinema found.", HttpStatus.NOT_FOUND);
+        }
+    }
+
+
+    //@PathVariable
 }
     
 
