@@ -24,7 +24,7 @@ import org.springframework.stereotype.Service;
  *
  * @author cristian
  */
-@Service
+@Service("cService")
 public class CinemaServices {
     @Autowired
     @Qualifier("inMemoryCP")
@@ -37,8 +37,8 @@ public class CinemaServices {
         
     }
 
-    public Set<Cinema> getAllCinemas(){
-        return null;
+    public Set<Cinema> getAllCinemas() throws CinemaException {
+        return cps.getAllCinemas();
     }
     
     /**

@@ -97,5 +97,12 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     public Cinema getCinema(String name) throws CinemaPersistenceException {
         return cinemas.get(name);
     }
+    @Override
+    public Set<Cinema> getAllCinemas() throws CinemaException {
+        if (cinemas.isEmpty()) {
+            throw new CinemaException("There are no cinemas to show");
+        }
+        return new HashSet<>(cinemas.values());
+    }
 
 }
