@@ -105,4 +105,18 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
         return new HashSet<>(cinemas.values());
     }
 
+    @Override
+    public CinemaFunction getFunctionByCinemaDateAndMovieName(String cinema, String date, String movieName) {
+        List<CinemaFunction> functions = new LinkedList<CinemaFunction>();
+        Cinema cinemaTicket = this.cinemas.get(cinema);
+        List<CinemaFunction> functionsOfOurCinema=cinemaTicket.getFunctions();
+        CinemaFunction function = null;
+        for (CinemaFunction cf: functionsOfOurCinema) {
+            if(cf.getDate().equals(date) && cf.getMovie().getName().equals(movieName)){
+                function = cf;
+            }
+        }
+        return function;
+    }
+
 }

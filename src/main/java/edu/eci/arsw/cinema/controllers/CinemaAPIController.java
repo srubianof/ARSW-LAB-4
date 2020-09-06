@@ -6,11 +6,14 @@
 package edu.eci.arsw.cinema.controllers;
 
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import edu.eci.arsw.cinema.model.Cinema;
+import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.services.CinemaServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -51,6 +54,30 @@ public class CinemaAPIController {
         } catch (Exception ex) {
             Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("Not cinema found.", HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/cinemas/{name}/{date}")
+    public ResponseEntity<?> cinemaByNameAndDate(@PathVariable String name, @PathVariable String date) {
+        try {
+            List<CinemaFunction> data = cinemaServices.getFunctionsByCinemaAndDate(name,date);
+            //obtener datos que se enviarán a través del API
+
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception ex) {
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Not found.", HttpStatus.NOT_FOUND);
+        }
+    }
+    @GetMapping("/cinemas/{name}/{date}/{movieName}")
+    public ResponseEntity<?> cinemaByNameDateAndMovieName(@PathVariable String name, @PathVariable String date, @PathVariable String movieName) {
+        try {
+            CinemaFunction data = cinemaServices.getFunctionByCinemaDateAndMovieName(name,date,movieName);
+            //obtener datos que se enviarán a través del API
+
+            return new ResponseEntity<>(data, HttpStatus.OK);
+        } catch (Exception ex) {
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Not found.", HttpStatus.NOT_FOUND);
         }
     }
 
