@@ -69,7 +69,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     }
 
     @Override
-    public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) {
+    public List<CinemaFunction> getFunctionsbyCinemaAndDate(String cinema, String date) throws CinemaPersistenceException {
         List<CinemaFunction> functions = new LinkedList<CinemaFunction>();
         Cinema cinemaTicket = this.cinemas.get(cinema);
         List<CinemaFunction> functionsOfOurCinema=cinemaTicket.getFunctions();
@@ -78,6 +78,9 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
             if(cf.getDate().equals(date)){
                functions.add(cf);
             }
+        }
+        if (functions.size()==0){
+            throw new CinemaPersistenceException("Not functions found.");
         }
         return functions;
 
@@ -95,6 +98,9 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
 
     @Override
     public Cinema getCinema(String name) throws CinemaPersistenceException {
+        if(cinemas.get(name)==null){
+            throw new CinemaPersistenceException("Not cinema Found");
+        }
         return cinemas.get(name);
     }
     @Override
@@ -106,7 +112,7 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
     }
 
     @Override
-    public CinemaFunction getFunctionByCinemaDateAndMovieName(String cinema, String date, String movieName) {
+    public CinemaFunction getFunctionByCinemaDateAndMovieName(String cinema, String date, String movieName) throws CinemaPersistenceException {
         List<CinemaFunction> functions = new LinkedList<CinemaFunction>();
         Cinema cinemaTicket = this.cinemas.get(cinema);
         List<CinemaFunction> functionsOfOurCinema=cinemaTicket.getFunctions();
@@ -116,7 +122,33 @@ public class InMemoryCinemaPersistence implements CinemaPersitence{
                 function = cf;
             }
         }
+        if (function==null){
+            throw new CinemaPersistenceException("Not function found.");
+        }
         return function;
+    }
+
+    @Override
+    public CinemaFunction updateOrCreateFuncion(String name, CinemaFunction cinemaFunction) throws CinemaPersistenceException {
+        Cinema cinema = this.getCinema(name);
+        CinemaFunction updatedFunction = null;
+        if (cinema==null){
+            throw new CinemaPersistenceException("Not cinema found.");
+        }
+        List<CinemaFunction> functions = cinema.getFunctions();
+        for (CinemaFunction f: functions) {
+            if(f.getMovie().getName().equals(cinemaFunction.getMovie().getName())){
+                updatedFunction = f;
+                f.setDate(cinemaFunction.getDate());
+                f.setMovie(cinemaFunction.getMovie());
+                f.setSeats(cinemaFunction.getSeats());
+            }
+        }
+        if(updatedFunction==null){
+            cinema.addFuncion(cinemaFunction);
+        }
+        return cinemaFunction;
+
     }
 
 }

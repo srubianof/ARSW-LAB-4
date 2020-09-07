@@ -73,8 +73,8 @@ public class CinemaFunction {
         }
         return availability;
     }
-    
-    
-    
-    
+
+    public void setSeats(List<List<Boolean>> seats) {
+        this.seats = seats;
+    }
 }

@@ -56,7 +56,7 @@ public class CinemaServices {
         cps.buyTicket(row,col,cinema,date,movieName);
     }
     
-    public List<CinemaFunction> getFunctionsByCinemaAndDate(String cinema, String date) {
+    public List<CinemaFunction> getFunctionsByCinemaAndDate(String cinema, String date) throws CinemaPersistenceException {
         return cps.getFunctionsbyCinemaAndDate(cinema,date);
     }
 
@@ -65,10 +65,20 @@ public class CinemaServices {
         Cinema cinemA = this.getCinemaByName(cinema);
         return cf.filerMovie(cinemA,date,filter);
     }
-    public CinemaFunction getFunctionByCinemaDateAndMovieName(String cinema, String date, String movieName){
+    public CinemaFunction getFunctionByCinemaDateAndMovieName(String cinema, String date, String movieName) throws CinemaPersistenceException {
         return cps.getFunctionByCinemaDateAndMovieName(cinema,date,movieName);
 
     }
 
 
+    public void addFunctionToCinema(String name, CinemaFunction cinemaFunction) throws CinemaPersistenceException {
+        Cinema cinema = cps.getCinema(name);
+        cinema.addFuncion(cinemaFunction);
+
+    }
+
+    public CinemaFunction updateOrCreateFuncion(String name, CinemaFunction cinemaFunction) throws CinemaPersistenceException {
+        return cps.updateOrCreateFuncion(name,cinemaFunction);
+
+    }
 }

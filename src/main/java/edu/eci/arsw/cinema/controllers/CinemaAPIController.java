@@ -81,8 +81,34 @@ public class CinemaAPIController {
         }
     }
 
+    @PostMapping("/cinemas/{name}")
+    public ResponseEntity<?> addFunctionToCinema(@RequestBody CinemaFunction cinemaFunction, @PathVariable String name){
+        try {
+            //registrar dato
+            cinemaServices.addFunctionToCinema(name,cinemaFunction);
 
-    //@PathVariable
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex) {
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Not possible, failed to create finction",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+    @PutMapping("/cinemas/{name}")
+    public ResponseEntity<?> updateCinemaFunction(@RequestBody CinemaFunction cinemaFunction, @PathVariable String name) {
+        //@PathVariable
+        try{
+            return new ResponseEntity<>(cinemaServices.updateOrCreateFuncion(name,cinemaFunction),HttpStatus.CREATED);
+
+        }
+        catch (Exception ex) {
+            Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Not possible, failed to find cinema",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 }
     
 
