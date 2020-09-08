@@ -19,9 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ApplicationServicesTest {
     @Test
     public void contextLoads() {
-        
-        
-        
-        
+
     }
 }

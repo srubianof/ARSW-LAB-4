@@ -1,3 +1,5 @@
+package edu.eci.arsw.cinema.test;
+
 import edu.eci.arsw.cinema.model.Cinema;
 import edu.eci.arsw.cinema.model.CinemaFunction;
 import edu.eci.arsw.cinema.persistence.CinemaException;
@@ -8,43 +10,47 @@ import java.util.List;
 import edu.eci.arsw.cinema.services.CinemaServices;
 import org.junit.Test;
 import org.junit.*;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
-public class  PersistenceTest {
-    private ApplicationContext ac;
-    private CinemaServices cs;
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class PersistenceTest {
+    @Autowired
+    CinemaServices cinemaServices;
+
     private Cinema c;
     private List<CinemaFunction> cfs;
+
     @Before
     public void setUp() throws CinemaException, CinemaPersistenceException {
-        ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-        cs = ac.getBean(CinemaServices.class);
-        c = cs.getCinemaByName("cinemaX");
-        cfs = cs.getFunctionsByCinemaAndDate("cinemaX", "2018-12-18 15:30");
+        c = cinemaServices.getCinemaByName("cinemaX");
+        cfs = cinemaServices.getFunctionsByCinemaAndDate("cinemaX", "2018-12-18 15:30");
+    }
+
+
+    public void shouldReturnCinemaName() {
+        String name = c.getName();
+        assertEquals("cinemaX", name);
     }
     @Test
-    public void shouldReturnCinemaName(){
-        String name = c.getName();
-        assertEquals("cinemaX",name);
+    public void shouldReturnByCinemaAndDate() {
+        String[] answers = new String[]{"SuperHeroes Movie", "The Night"};
+        for (int i = 0; i < cfs.size(); i++) {
+            assertEquals(answers[i], cfs.get(i).getMovie().getName());
+        }
     }
 
     @Test
-    public void shouldReturnByCinemaAndDate(){
-        String[] answers = new String[]{"SuperHeroes Movie","The Night"};
-        for (int i = 0; i < cfs.size(); i++) {
-            assertEquals(answers[i],cfs.get(i).getMovie().getName());
-        }
-    }
-    @Test
-    public void shouldBuyTickets(){
+    public void shouldBuyTickets() {
         int before = cfs.get(0).movieAvailability(); //SuperHeroes Movie
-        try{
-            cs.buyTicket(1,1,"cinemaX","2018-12-18 15:30","SuperHeroes Movie");
-        }
-        catch (CinemaException e){
+        try {
+            cinemaServices.buyTicket(1, 1, "cinemaX", "2018-12-18 15:30", "SuperHeroes Movie");
+        } catch (CinemaException e) {
             fail();
         }
         int after = cfs.get(0).movieAvailability();
