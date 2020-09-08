@@ -13,29 +13,40 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * The type Cinema filter by gender.
+ */
 @Component
 @Qualifier("FilterByG")
+
 public class CinemaFilterByGender implements CinemaFilterI {
     @Override
     public List<Movie> filerMovie(Cinema cinema, String date, String filter) throws CinemaFilterException {
-        if (isNumeric(filter)){
+        if (isNumeric(filter)) {
             throw new CinemaFilterException(CinemaFilterException.ms1);
         }
         String gender = filter;
         List<Movie> moviesByGender = new LinkedList<Movie>();
         List<CinemaFunction> functions = cinema.getFunctions();
-        for (CinemaFunction cf: functions) {
-            if(cf.getMovie().getGenre().equals(gender) && cf.getDate().equals(date)){
+        for (CinemaFunction cf : functions) {
+            if (cf.getMovie().getGenre().equals(gender) && cf.getDate().equals(date)) {
                 moviesByGender.add(cf.getMovie());
             }
         }
         return moviesByGender;
     }
+
+    /**
+     * Is numeric boolean.
+     *
+     * @param str the str
+     * @return the boolean
+     */
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }

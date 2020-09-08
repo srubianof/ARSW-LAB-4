@@ -13,7 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import static org.junit.Assert.*;
 
-public class PersistenceTest {
+public class  PersistenceTest {
     private ApplicationContext ac;
     private CinemaServices cs;
     private Cinema c;

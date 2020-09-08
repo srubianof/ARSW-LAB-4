@@ -8,41 +8,84 @@ package edu.eci.arsw.cinema.model;
 import java.util.List;
 
 /**
+ * The type Cinema.
  *
  * @author cristian
  */
+
 public class Cinema {
     private String name;
-    private List<CinemaFunction> functions; 
-    
-    
-    public Cinema(){}
-    
-    public Cinema(String name,List<CinemaFunction> functions){
-        this.name=name;
-        this.functions=functions;
+    private List<CinemaFunction> functions;
+
+
+    /**
+     * Instantiates a new Cinema.
+     */
+    public Cinema() {
     }
 
+    /**
+     * Instantiates a new Cinema.
+     *
+     * @param name      the name
+     * @param functions the functions
+     */
+    public Cinema(String name, List<CinemaFunction> functions) {
+        this.name = name;
+        this.functions = functions;
+    }
+
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Gets functions.
+     *
+     * @return the functions
+     */
     public List<CinemaFunction> getFunctions() {
         return this.functions;
     }
 
+    /**
+     * Sets schedule.
+     *
+     * @param functions the functions
+     */
     public void setSchedule(List<CinemaFunction> functions) {
         this.functions = functions;
     }
 
+    /**
+     * Sets functions.
+     *
+     * @param functions the functions
+     */
     public void setFunctions(List<CinemaFunction> functions) {
         this.functions = functions;
     }
-    public void addFuncion(CinemaFunction function){
+
+    /**
+     * Add funcion.
+     *
+     * @param function the function
+     */
+    public void addFuncion(CinemaFunction function) {
         this.functions.add(function);
     }
 }
