@@ -19,8 +19,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * The type In memory cinema persistence.
- *
- * @author cristian
  */
 @Component
 @Qualifier("inMemoryCP")
