@@ -1,0 +1,16 @@
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/services/CinemaServices.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/persistence/CinemaPersitence.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/filter/CinemaFilterI.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/CinemaAPIApplication.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/filter/impl/CinemaFilterByGender.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/model/Seat.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/persistence/impl/InMemoryCinemaPersistence.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/controllers/CinemaAPIController.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/model/Movie.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/persistence/CinemaPersistenceException.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/persistence/CinemaException.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/model/Cinema.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/filter/impl/CinemaFilterByAvailability.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/filter/CinemaFilterException.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/controllers/ResourceNotFoundException.java
+/Users/santiago/Desktop/ARSW-LAB-4/src/main/java/edu/eci/arsw/cinema/model/CinemaFunction.java
