@@ -22,15 +22,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * The type Cinema api controller.
+ *
  * @author cristian
  */
 @RestController
 @RequestMapping(value = "/")
 public class CinemaAPIController {
 
+    /**
+     * The Cinema services.
+     */
     @Autowired
     CinemaServices cinemaServices;
 
+    /**
+     * Cinemas response entity.
+     *
+     * @return the response entity
+     */
     @GetMapping("/cinemas")
     public ResponseEntity<?> cinemas() {
         try {
@@ -44,6 +54,12 @@ public class CinemaAPIController {
         }
     }
 
+    /**
+     * Cinema by name response entity.
+     *
+     * @param name the name
+     * @return the response entity
+     */
     @GetMapping("/cinemas/{name}")
     public ResponseEntity<?> cinemaByName(@PathVariable String name) {
         try {
@@ -56,10 +72,18 @@ public class CinemaAPIController {
             return new ResponseEntity<>("Not cinema found.", HttpStatus.NOT_FOUND);
         }
     }
+
+    /**
+     * Cinema by name and date response entity.
+     *
+     * @param name the name
+     * @param date the date
+     * @return the response entity
+     */
     @GetMapping("/cinemas/{name}/{date}")
     public ResponseEntity<?> cinemaByNameAndDate(@PathVariable String name, @PathVariable String date) {
         try {
-            List<CinemaFunction> data = cinemaServices.getFunctionsByCinemaAndDate(name,date);
+            List<CinemaFunction> data = cinemaServices.getFunctionsByCinemaAndDate(name, date);
             //obtener datos que se enviarán a través del API
 
             return new ResponseEntity<>(data, HttpStatus.OK);
@@ -68,10 +92,19 @@ public class CinemaAPIController {
             return new ResponseEntity<>("Not found.", HttpStatus.NOT_FOUND);
         }
     }
+
+    /**
+     * Cinema by name date and movie name response entity.
+     *
+     * @param name      the name
+     * @param date      the date
+     * @param movieName the movie name
+     * @return the response entity
+     */
     @GetMapping("/cinemas/{name}/{date}/{movieName}")
     public ResponseEntity<?> cinemaByNameDateAndMovieName(@PathVariable String name, @PathVariable String date, @PathVariable String movieName) {
         try {
-            CinemaFunction data = cinemaServices.getFunctionByCinemaDateAndMovieName(name,date,movieName);
+            CinemaFunction data = cinemaServices.getFunctionByCinemaDateAndMovieName(name, date, movieName);
             //obtener datos que se enviarán a través del API
 
             return new ResponseEntity<>(data, HttpStatus.OK);
@@ -81,30 +114,45 @@ public class CinemaAPIController {
         }
     }
 
+    /**
+     * Add function to cinema response entity.
+     *
+     * @param cinemaFunction the cinema function
+     * @param name           the name
+     * @return the response entity
+     */
     @PostMapping("/cinemas/{name}")
-    public ResponseEntity<?> addFunctionToCinema(@RequestBody CinemaFunction cinemaFunction, @PathVariable String name){
+    public ResponseEntity<?> addFunctionToCinema(@RequestBody CinemaFunction cinemaFunction, @PathVariable String name) {
         try {
             //registrar dato
-            cinemaServices.addFunctionToCinema(name,cinemaFunction);
+            cinemaServices.addFunctionToCinema(name, cinemaFunction);
 
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex) {
             Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Not possible, failed to create finction",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Not possible, failed to create finction", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
 
     }
+
+    /**
+     * Update cinema function response entity.
+
+     *
+     * @param cinemaFunction the cinema function
+     * @param name           the name
+     * @return the response entity
+     */
     @PutMapping("/cinemas/{name}")
     public ResponseEntity<?> updateCinemaFunction(@RequestBody CinemaFunction cinemaFunction, @PathVariable String name) {
         //@PathVariable
-        try{
-            return new ResponseEntity<>(cinemaServices.updateOrCreateFuncion(name,cinemaFunction),HttpStatus.CREATED);
+        try {
+            return new ResponseEntity<>(cinemaServices.updateOrCreateFunction(name, cinemaFunction), HttpStatus.CREATED);
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CinemaAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Not possible, failed to find cinema",HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Not possible, failed to find cinema", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }

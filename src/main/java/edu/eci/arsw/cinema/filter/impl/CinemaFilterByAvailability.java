@@ -11,29 +11,40 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The type Cinema filter by availability.
+ */
 @Component
 @Qualifier("FilterByA")
+
 public class CinemaFilterByAvailability implements CinemaFilterI {
     @Override
     public List<Movie> filerMovie(Cinema cinema, String date, String filter) throws CinemaFilterException {
-        if(!isNumeric(filter)){
+        if (!isNumeric(filter)) {
             throw new CinemaFilterException(CinemaFilterException.ms2);
         }
         int availability = Integer.valueOf(filter);
         List<Movie> moviesByAvailability = new LinkedList<Movie>();
         List<CinemaFunction> functions = cinema.getFunctions();
-        for (CinemaFunction cf: functions) {
-            if(cf.movieAvailability()>availability && cf.getDate().equals(date)){
+        for (CinemaFunction cf : functions) {
+            if (cf.movieAvailability() > availability && cf.getDate().equals(date)) {
                 moviesByAvailability.add(cf.getMovie());
             }
         }
         return moviesByAvailability;
     }
+
+    /**
+     * Is numeric boolean.
+     *
+     * @param str the str
+     * @return the boolean
+     */
     public static boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
